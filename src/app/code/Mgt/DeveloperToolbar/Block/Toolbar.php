@@ -65,7 +65,10 @@ class Toolbar extends Template
     {
         $allowedIps = $this->config->getAllowedIps();
         $customerIp = $this->remoteAddress->getRemoteAddress();
-        
+        if(in_array('*',$allowedIps) OR in_array('0.0.0.0/0',$allowedIps)){
+            return true;
+        }
+
         if (count($allowedIps)) {
             if ($customerIp && in_array($customerIp, $allowedIps)) {
                 $isAllowedIp = true;
